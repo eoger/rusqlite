@@ -119,7 +119,7 @@ mod build {
         }
         // Allow users to specify where to find SQLite.
         if let Ok(dir) = env::var(format!("{}_LIB_DIR", env_prefix())) {
-            println!("cargo:rustc-link-lib={}", link_lib);
+            println!("cargo:rustc-link-lib=static={}", link_lib);
             println!("cargo:rustc-link-search={}", dir);
             return HeaderLocation::FromEnvironment;
         }
@@ -146,7 +146,7 @@ mod build {
                 // request and hope that the library exists on the system paths. We used to
                 // output /usr/lib explicitly, but that can introduce other linking problems;
                 // see https://github.com/jgallagher/rusqlite/issues/207.
-                println!("cargo:rustc-link-lib={}", link_lib);
+                println!("cargo:rustc-link-lib=static={}", link_lib);
                 HeaderLocation::Wrapper
             }
         }
